@@ -27,10 +27,10 @@ public class UserController {
         List<User> userList=userService.getAllUsers();
         return ResponseEntity.ok(userList);
     }
-    @GetMapping("/getUserById"+"/{id}")
-    public ResponseEntity<User> getUser(@PathVariable("id") long id)
+    @GetMapping("/getUserById")
+    public ResponseEntity<User> getUser(@RequestParam("userId") long userId)
     {
-        User user=userService.getUserById(id);
+        User user=userService.getUserById(userId);
         return ResponseEntity.ok(user);
     }
     @GetMapping("/login")
@@ -39,14 +39,14 @@ public class UserController {
         User user=userService.getUserByUserName(X_AUTH_USER);
         return ResponseEntity.ok(user);
     }
-    @PutMapping("/updateProfile"+"/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") long id,@Valid @RequestBody User user)
+    @PutMapping("/updateProfile")
+    public ResponseEntity<User> updateUser(@RequestParam("id") long id,@Valid @RequestBody User user)
     {
         User user1=userService.updateUser(user,id);
         return ResponseEntity.ok(user1);
     }
-    @DeleteMapping("/deletProfile"+"/{id}")
-    public ResponseEntity<String> delteUser(@PathVariable("id") long id)
+    @DeleteMapping("/deletProfile")
+    public ResponseEntity<String> delteUser(@RequestParam("id") long id)
     {
         userService.deleteUser(id);
         return ResponseEntity.ok("Your Profile is Deleted SuccesFully!");

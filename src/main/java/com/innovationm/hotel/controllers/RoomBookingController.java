@@ -16,8 +16,8 @@ public class RoomBookingController {
     @Autowired
     private RoomService roomService;
 
-    @PostMapping("/bookRoom"+"/{roomId}"+"/{userId}")
-    public ResponseEntity<RoomRequest> bookRoom(@Valid @RequestBody RoomRequest roomRequest, @PathVariable("roomId") long roomId,@PathVariable("userId") long userId ) throws ParseException {
+    @PostMapping("/bookRoom")
+    public ResponseEntity<RoomRequest> bookRoom(@Valid @RequestBody RoomRequest roomRequest, @RequestParam("roomId") long roomId,@RequestParam("userId") long userId ) throws ParseException {
         RoomRequest roomRequest1=roomService.createRoomRequest(userId,roomId,roomRequest);
         return ResponseEntity.ok(roomRequest1);
     }
@@ -28,8 +28,8 @@ public class RoomBookingController {
         List<RoomRequest> roomRequests=roomService.getAllRequestByUserId(userId);
         return ResponseEntity.ok(roomRequests);
     }
-    @DeleteMapping("/cancelRoomBooking"+"/{roomId}"+"/{userId}")
-    public ResponseEntity<String> cancelBookedRoom(@PathVariable("roomId") long roomId,@PathVariable("userId") long userId)
+    @DeleteMapping("/cancelRoomBooking")
+    public ResponseEntity<String> cancelBookedRoom(@RequestParam("roomId") long roomId,@RequestParam("userId") long userId)
     {
         roomService.deleteRoomRequest(userId,roomId);
         return ResponseEntity.ok("Your booking is canceld succesfully");
